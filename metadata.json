@@ -1,0 +1,6 @@
+{
+  "name": "Loja-62",
+  "description": "A simple and modern Point of Sale (POS) Progressive Web App (PWA) for small businesses. Manage products, inventory, and sales with an intuitive interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
