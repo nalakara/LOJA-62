@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 import CategoryTabs from './components/CategoryTabs';
 import ProductList from './components/ProductList';
 import Cart from './components/Cart';
@@ -93,6 +94,7 @@ const App: React.FC = () => {
 
   // App Navigation Shell State
   const [currentView, setCurrentView] = useState<View>('pos');
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState<boolean>(false);
 
   // Modal Action Handlers
   const handleOpenEditProductModal = (product: Product) => openModal({ type: 'PRODUCT_FORM', data: product });
@@ -393,10 +395,25 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-bone font-sans text-ink">
-      <Header currentView={currentView} onNavigate={setCurrentView} storeName={settings.storeName} />
-      <main className="p-4 md:p-8 max-w-screen-2xl mx-auto">
-        {currentView === 'pos' && (
+    <div className="min-h-screen bg-bone font-sans text-ink flex">
+      {/* Persistent Left Sidebar (Desktop) + Off-canvas Drawer (Mobile) */}
+      <Sidebar
+        currentView={currentView}
+        onNavigate={setCurrentView}
+        isOpenMobile={isMobileNavOpen}
+        onCloseMobile={() => setIsMobileNavOpen(false)}
+        storeName={settings.storeName}
+      />
+
+      {/* Main App Container */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+        <Header
+          storeName={settings.storeName}
+          onOpenMobileNav={() => setIsMobileNavOpen(true)}
+        />
+        
+        <main className="flex-1 p-4 md:p-8 max-w-screen-2xl w-full mx-auto">
+          {currentView === 'pos' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <div className="bg-bone-light border border-mineral rounded-2xl shadow-sm p-6">
@@ -700,6 +717,7 @@ const App: React.FC = () => {
         onConfirm={confirmState.onConfirm}
         onCancel={closeConfirm}
       />
+      </div>
     </div>
   );
 };
