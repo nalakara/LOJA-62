@@ -31,6 +31,7 @@ import StoreAssetForm from './components/StoreAssetForm';
 import CreateInvoiceModal from './components/CreateInvoiceModal';
 import ProductionOrders from './components/ProductionOrders';
 import ProductionOrderForm from './components/ProductionOrderForm';
+import { CommerceView } from './components/commerce/CommerceView';
 import { AddIcon } from './components/icons';
 import { Product, View, RawMaterial, Category, RawMaterialCategory, Supplier, Customer, PurchaseOrder, StockAdjustment, StoreAsset, ProductionBatch } from './types';
 import { UNITS, ADJUSTMENT_TYPES } from './constants';
@@ -420,6 +421,9 @@ const App: React.FC = () => {
               />
             </div>
           </div>
+        )}
+        {currentView === 'commerce' && (
+          <CommerceView />
         )}
         {currentView === 'inventory' && (
           <Inventory 

@@ -5,6 +5,8 @@ export const INITIAL_CATEGORIES: Category[] = [
   { id: 2, name: 'Kopi Dingin' },
   { id: 3, name: 'Jajanan' },
   { id: 4, name: 'Produk Setengah Jadi' },
+  { id: 5, name: 'Biji Kopi (Retail)' },
+  { id: 6, name: 'Layanan & Roastery' },
 ];
 
 export const UNITS: Unit[] = ['gram', 'ml', 'pcs'];
@@ -41,6 +43,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     imageUrl: 'https://picsum.photos/seed/espresso/400/300',
     directLaborCost: 500,
     productionOverheadCost: 200,
+    itemType: 'product',
   },
   {
     id: 2,
@@ -54,6 +57,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     imageUrl: 'https://picsum.photos/seed/cappuccino/400/300',
     directLaborCost: 1500,
     productionOverheadCost: 500,
+    itemType: 'product',
+    description: 'Espresso bold berpadu dengan steamed milk lembut dan foam susu tebal.',
+    options: [
+      { name: 'Sweetness', choices: ['Normal', 'Less Sweet', 'No Sugar'] },
+      { name: 'Milk Option', choices: ['Fresh Milk', 'Oat Milk'] },
+    ],
   },
   {
     id: 3,
@@ -67,6 +76,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     imageUrl: 'https://picsum.photos/seed/latte/400/300',
     directLaborCost: 1200,
     productionOverheadCost: 400,
+    itemType: 'product',
+    description: 'Kopi susu dingin segar dengan rasa creamy yang seimbang.',
+    options: [
+      { name: 'Ice Level', choices: ['Normal Ice', 'Less Ice'] },
+      { name: 'Sweetness', choices: ['Normal', 'Less Sweet', 'No Sugar'] },
+    ],
   },
   {
     id: 4,
@@ -82,6 +97,57 @@ export const INITIAL_PRODUCTS: Product[] = [
     imageUrl: 'https://picsum.photos/seed/croissant/400/300',
     directLaborCost: 3000,
     productionOverheadCost: 1000,
+    itemType: 'product',
+    description: 'Pastry mentega renyah dan lembut dipanggang setiap pagi.',
+  },
+  {
+    id: 5,
+    name: 'Gayo Arabica Beans (250g)',
+    categoryId: 5, // Biji Kopi (Retail)
+    recipe: [
+        { itemId: 1, itemType: 'raw-material', quantity: 250 },
+    ],
+    sellPrice: 85000,
+    imageUrl: 'https://picsum.photos/seed/gayobeans/400/300',
+    directLaborCost: 5000,
+    productionOverheadCost: 2000,
+    itemType: 'product',
+    description: 'Single origin Arabika Gayo dengan notes floral, citrus, dan caramel sweetness.',
+    options: [
+      { name: 'Grind Size', choices: ['Whole Bean (Biji Utuh)', 'Coarse (Manual Brew/French Press)', 'Medium (V60/Aeropress)', 'Fine (Espresso/Moka Pot)'] },
+      { name: 'Roast Profile', choices: ['Medium Roast', 'Medium-Dark Roast'] },
+    ],
+  },
+  {
+    id: 6,
+    name: 'Jasa Custom Roasting (per Batch 1kg)',
+    categoryId: 6, // Layanan & Roastery
+    recipe: [],
+    sellPrice: 45000,
+    imageUrl: 'https://picsum.photos/seed/customroast/400/300',
+    directLaborCost: 25000,
+    productionOverheadCost: 10000,
+    itemType: 'service',
+    description: 'Layanan jasa sangrai biji kopi mentah (green bean) pelanggan dengan profil sangrai yang dapat disesuaikan.',
+    options: [
+      { name: 'Target Profile', choices: ['Light-Medium (Filter / Fruity)', 'Medium Roast (Balance)', 'Dark Roast (Bold / Espresso)'] },
+      { name: 'Packaging', choices: ['Standard Valve Pouch', 'Vacuum Bag'] },
+    ],
+  },
+  {
+    id: 7,
+    name: 'Jasa Pembersihan & Kalibrasi Grinder Mesin Kopi',
+    categoryId: 6, // Layanan & Roastery
+    recipe: [],
+    sellPrice: 75000,
+    imageUrl: 'https://picsum.photos/seed/grindercleaning/400/300',
+    directLaborCost: 40000,
+    productionOverheadCost: 15000,
+    itemType: 'service',
+    description: 'Layanan servis deep cleaning burr, alignment, dan kalibrasi akurasi gilingan mesin kopi espresso / commercial grinder.',
+    options: [
+      { name: 'Service Type', choices: ['In-store Drop-off', 'On-site Inspection'] },
+    ],
   },
 ];
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StoreIcon, POSIcon, InventoryIcon, DashboardIcon, ReportsIcon, SettingsIcon, ChevronDownIcon, ContactsIcon, TruckIcon, ClipboardListIcon, AssetIcon, ReceiptIcon, FlameIcon } from './icons';
+import { StoreIcon, POSIcon, InventoryIcon, DashboardIcon, ReportsIcon, SettingsIcon, ChevronDownIcon, ContactsIcon, TruckIcon, ClipboardListIcon, AssetIcon, ReceiptIcon, FlameIcon, ShoppingBagIcon } from './icons';
 import { View } from '../types';
 import { useTranslation } from '../context/LanguageContext';
 
@@ -119,6 +119,13 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, storeName }) =
                     onClick={() => onNavigate('pos')}
                     icon={<POSIcon className="h-5 w-5" />}
                     label={t('pos')}
+                />
+                
+                <NavButton 
+                    isActive={currentView === 'commerce'}
+                    onClick={() => onNavigate('commerce')}
+                    icon={<ShoppingBagIcon className="h-5 w-5" />}
+                    label={t('commerce')}
                 />
                 
                 <div className="relative" ref={productMenuRef}>

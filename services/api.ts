@@ -437,7 +437,9 @@ export const processSale = async (
     settings: AppSettings,
     invoiceCounter: number,
     paymentStatus: 'paid' | 'unpaid' = 'paid',
-    customerId?: number
+    customerId?: number,
+    channel: 'pos' | 'commerce' = 'pos',
+    paymentMethod?: string
 ) => {
     const rawMaterials = await getRawMaterials();
     const materialDeductions = new Map<number, number>();
@@ -477,6 +479,8 @@ export const processSale = async (
         quantity: item.quantity,
         sellPrice: item.sellPrice,
         hpp: item.hpp,
+        selectedOptions: item.selectedOptions,
+        notes: item.notes,
       })),
       subtotal,
       tax,
@@ -485,6 +489,8 @@ export const processSale = async (
       profit: subtotal - totalHpp,
       paymentStatus,
       customerId,
+      channel,
+      paymentMethod,
     };
     
     const salesHistory = await getSalesHistory();

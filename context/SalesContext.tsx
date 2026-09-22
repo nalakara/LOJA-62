@@ -12,7 +12,9 @@ interface SalesContextValue {
   processCheckout: (
     cart: CartItem[],
     paymentStatus?: 'paid' | 'unpaid',
-    customerId?: number
+    customerId?: number,
+    channel?: 'pos' | 'commerce',
+    paymentMethod?: string
   ) => Promise<{ updatedRawMaterials: any[]; newTransaction: SaleTransaction }>;
   refreshSales: () => Promise<void>;
 }
@@ -55,7 +57,9 @@ export const SalesProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     async (
       cart: CartItem[],
       paymentStatus: 'paid' | 'unpaid' = 'paid',
-      customerId?: number
+      customerId?: number,
+      channel: 'pos' | 'commerce' = 'pos',
+      paymentMethod?: string
     ) => {
       const { updatedRawMaterials, newTransaction } = await api.processSale(
         cart,
@@ -63,7 +67,9 @@ export const SalesProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         settings,
         invoiceCounter,
         paymentStatus,
-        customerId
+        customerId,
+        channel,
+        paymentMethod
       );
 
       setRawMaterialsState(updatedRawMaterials);

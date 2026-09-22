@@ -40,6 +40,12 @@ export interface Product {
   imageUrl: string;
   directLaborCost?: number;
   productionOverheadCost?: number;
+  itemType?: 'product' | 'service';
+  description?: string;
+  options?: {
+    name: string;
+    choices: string[];
+  }[];
 }
 
 export interface ProductWithDetails extends Product {
@@ -51,6 +57,8 @@ export interface ProductWithDetails extends Product {
 
 export interface CartItem extends ProductWithDetails {
   quantity: number;
+  selectedOptions?: Record<string, string>;
+  notes?: string;
 }
 
 export interface SoldItem {
@@ -59,6 +67,8 @@ export interface SoldItem {
   quantity: number;
   sellPrice: number;
   hpp: number;
+  selectedOptions?: Record<string, string>;
+  notes?: string;
 }
 
 export interface SaleTransaction {
@@ -72,6 +82,8 @@ export interface SaleTransaction {
   profit: number;
   customerId?: number;
   paymentStatus: 'paid' | 'unpaid';
+  channel?: 'pos' | 'commerce';
+  paymentMethod?: string;
 }
 
 export interface AppSettings {
@@ -183,4 +195,4 @@ export interface ProductionBatch {
   notes?: string;
 }
 
-export type View = 'pos' | 'inventory' | 'materials' | 'dashboard' | 'categories' | 'material-categories' | 'reports' | 'store-profile' | 'suppliers' | 'customers' | 'purchase-orders' | 'stock-adjustments' | 'store-assets' | 'invoice-settings' | 'production';
+export type View = 'pos' | 'commerce' | 'inventory' | 'materials' | 'dashboard' | 'categories' | 'material-categories' | 'reports' | 'store-profile' | 'suppliers' | 'customers' | 'purchase-orders' | 'stock-adjustments' | 'store-assets' | 'invoice-settings' | 'production';
