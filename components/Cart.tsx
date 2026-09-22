@@ -20,65 +20,67 @@ const Cart: React.FC<CartProps> = ({ cartItems, onUpdateQuantity, onRemoveItem, 
   const total = subtotal + tax;
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl shadow-lg p-6 flex flex-col h-full sticky top-36">
-      <h2 className="text-2xl font-bold text-slate-100 border-b border-slate-700 pb-4 mb-4">{t('cart')}</h2>
+    <div className="bg-bone-light border border-mineral rounded-xl shadow-sm p-5 flex flex-col h-full sticky top-28">
+      <h2 className="text-lg font-bold text-ink border-b border-mineral pb-3 mb-4">{t('cart')}</h2>
       
       {cartItems.length === 0 ? (
-        <div className="flex-grow flex flex-col items-center justify-center text-slate-400">
-          <EmptyCartIcon className="h-24 w-24 text-slate-600 mb-4" />
-          <p className="font-medium">{t('yourCartIsEmpty')}</p>
-          <p className="text-sm">{t('pleaseSelectProducts')}</p>
+        <div className="flex-grow flex flex-col items-center justify-center text-ink-muted py-8">
+          <EmptyCartIcon className="h-16 w-16 text-mineral-dark mb-3" />
+          <p className="font-semibold text-sm text-ink">{t('yourCartIsEmpty')}</p>
+          <p className="text-xs text-ink-muted mt-0.5">{t('pleaseSelectProducts')}</p>
         </div>
       ) : (
-        <div className="flex-grow overflow-y-auto -mr-3 pr-3">
+        <div className="flex-grow overflow-y-auto space-y-3 pr-1 max-h-[48vh]">
           {cartItems.map((item) => (
-            <div key={item.id} className="flex items-center space-x-4 mb-4">
-              <img src={item.imageUrl} alt={item.name} className="w-16 h-16 rounded-md object-cover" />
-              <div className="flex-grow">
-                <p className="font-semibold text-slate-200">{item.name}</p>
-                <p className="text-sm text-slate-400">{formatCurrency(item.sellPrice)}</p>
-                <div className="flex items-center mt-1">
-                  <button onClick={() => onUpdateQuantity(item.id, -1)} className="p-1 rounded-full bg-slate-700 hover:bg-slate-600 transition"><MinusIcon className="h-4 w-4" /></button>
-                  <span className="px-3 font-medium">{item.quantity}</span>
-                  <button onClick={() => onUpdateQuantity(item.id, 1)} className="p-1 rounded-full bg-slate-700 hover:bg-slate-600 transition"><PlusIcon className="h-4 w-4" /></button>
+            <div key={item.id} className="flex items-center space-x-3 p-2 rounded-lg bg-bone/70 border border-mineral/60">
+              <img src={item.imageUrl} alt={item.name} className="w-12 h-12 rounded-lg object-cover bg-mineral-light shrink-0" />
+              <div className="flex-grow min-w-0">
+                <p className="font-semibold text-xs text-ink line-clamp-1">{item.name}</p>
+                <p className="text-xs font-bold text-coffee mt-0.5">{formatCurrency(item.sellPrice)}</p>
+                <div className="flex items-center space-x-1.5 mt-1">
+                  <button onClick={() => onUpdateQuantity(item.id, -1)} className="p-1 rounded bg-mineral hover:bg-mineral-dark transition text-ink"><MinusIcon className="h-3 w-3" /></button>
+                  <span className="px-2 text-xs font-bold text-ink">{item.quantity}</span>
+                  <button onClick={() => onUpdateQuantity(item.id, 1)} className="p-1 rounded bg-mineral hover:bg-mineral-dark transition text-ink"><PlusIcon className="h-3 w-3" /></button>
                 </div>
               </div>
-              <div className="flex flex-col items-end">
-                <p className="font-bold text-slate-100">{formatCurrency(item.sellPrice * item.quantity)}</p>
-                <button onClick={() => onRemoveItem(item.id)} className="text-red-500 hover:text-red-400 mt-2 transition"><TrashIcon className="h-5 w-5" /></button>
+              <div className="flex flex-col items-end shrink-0">
+                <p className="font-bold text-xs text-ink">{formatCurrency(item.sellPrice * item.quantity)}</p>
+                <button onClick={() => onRemoveItem(item.id)} className="text-danger hover:text-danger-hover mt-1 p-1 transition" aria-label={t('delete')}><TrashIcon className="h-4 w-4" /></button>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      <div className="border-t border-slate-700 pt-4 mt-auto">
-        <div className="space-y-2 text-slate-300">
+      <div className="border-t border-mineral pt-4 mt-auto space-y-3">
+        <div className="space-y-1.5 text-xs text-ink-muted">
           <div className="flex justify-between">
             <span>{t('subtotal')}</span>
-            <span className="font-medium">{formatCurrency(subtotal)}</span>
+            <span className="font-semibold text-ink">{formatCurrency(subtotal)}</span>
           </div>
-          <div className="flex justify-between">
-            <span>{t('tax')} ({taxRate}%)</span>
-            <span className="font-medium">{formatCurrency(tax)}</span>
-          </div>
-          <div className="flex justify-between text-xl font-bold text-slate-100 pt-2 border-t border-slate-700">
+          {taxRate > 0 && (
+            <div className="flex justify-between">
+              <span>{t('tax')} ({taxRate}%)</span>
+              <span className="font-semibold text-ink">{formatCurrency(tax)}</span>
+            </div>
+          )}
+          <div className="flex justify-between text-base font-bold text-ink pt-2 border-t border-mineral">
             <span>{t('total')}</span>
-            <span>{formatCurrency(total)}</span>
+            <span className="text-coffee">{formatCurrency(total)}</span>
           </div>
         </div>
-        <div className="flex space-x-3 mt-6">
+        <div className="flex gap-2 pt-1">
             <button
                 onClick={onCreateInvoice}
                 disabled={cartItems.length === 0}
-                className="w-full bg-slate-700 text-slate-200 font-bold py-3 rounded-lg hover:bg-slate-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-mineral-light border border-mineral text-ink font-semibold py-2.5 rounded-lg hover:bg-mineral transition text-xs disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 {t('createInvoice')}
             </button>
             <button
                 onClick={onCheckout}
                 disabled={cartItems.length === 0}
-                className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 disabled:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-coffee text-bone font-semibold py-2.5 rounded-lg hover:bg-coffee-hover shadow-sm transition text-xs disabled:bg-mineral-dark disabled:text-ink-faint disabled:cursor-not-allowed"
             >
                 {t('checkout')}
             </button>

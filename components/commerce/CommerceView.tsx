@@ -161,15 +161,15 @@ export const CommerceView: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Storefront Top Header Bar */}
-      <div className="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-6 shadow-lg backdrop-blur-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="bg-bone-light border border-mineral rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <ShoppingBagIcon className="w-7 h-7 text-purple-400" />
-            <h2 className="text-2xl font-bold text-slate-100 tracking-tight">
+            <ShoppingBagIcon className="w-7 h-7 text-coffee" />
+            <h2 className="text-2xl font-bold text-ink tracking-tight">
               {settings.storeName || 'Loja-62'} Storefront
             </h2>
           </div>
-          <p className="text-xs text-slate-400 mt-1 max-w-xl">
+          <p className="text-xs text-ink-muted mt-1 max-w-xl">
             {t('storefrontSubtitle')}
           </p>
         </div>
@@ -177,12 +177,12 @@ export const CommerceView: React.FC = () => {
         {/* Cart Quick Button */}
         <button
           onClick={() => setIsCartOpen(true)}
-          className="self-start md:self-auto flex items-center gap-2.5 bg-purple-600 hover:bg-purple-500 text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-md transition-all group"
+          className="self-start md:self-auto flex items-center gap-2.5 bg-coffee hover:bg-coffee-hover text-bone px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition-all group"
         >
           <ShoppingBagIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
           <span>{t('viewCart')}</span>
           {cartItemCount > 0 && (
-            <span className="bg-white/20 text-white px-2 py-0.5 rounded-full text-[11px] font-bold">
+            <span className="bg-bone/20 text-bone px-2 py-0.5 rounded-full text-[11px] font-bold">
               {cartItemCount}
             </span>
           )}
@@ -192,7 +192,7 @@ export const CommerceView: React.FC = () => {
       {/* Filter & Search Bar */}
       <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         {/* Type Switcher (All / Physical Products / Services) */}
-        <div className="flex bg-slate-800/80 border border-slate-700 p-1 rounded-xl shrink-0">
+        <div className="flex bg-bone-light border border-mineral p-1 rounded-xl shrink-0">
           {[
             { key: 'all', label: t('filterAll') },
             { key: 'product', label: t('filterProducts') },
@@ -203,8 +203,8 @@ export const CommerceView: React.FC = () => {
               onClick={() => setActiveTypeFilter(tab.key as any)}
               className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                 activeTypeFilter === tab.key
-                  ? 'bg-purple-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-coffee text-bone shadow-sm'
+                  : 'text-ink-muted hover:text-ink'
               }`}
             >
               {tab.label}
@@ -214,13 +214,13 @@ export const CommerceView: React.FC = () => {
 
         {/* Search Input */}
         <div className="relative flex-grow max-w-md">
-          <SearchIcon className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+          <SearchIcon className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-faint" />
           <input
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             placeholder={t('searchPlaceholder')}
-            className="w-full text-xs bg-slate-800/80 border border-slate-700 rounded-xl pl-9 pr-3.5 py-2 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+            className="w-full text-xs bg-bone-light border border-mineral rounded-xl pl-9 pr-3.5 py-2 text-ink placeholder-ink-faint focus:outline-none focus:border-coffee transition-colors"
           />
         </div>
       </div>
@@ -232,8 +232,8 @@ export const CommerceView: React.FC = () => {
             onClick={() => setSelectedCategoryId('all')}
             className={`px-3 py-1 rounded-full text-xs font-medium shrink-0 transition-colors ${
               selectedCategoryId === 'all'
-                ? 'bg-slate-200 text-slate-900 font-semibold'
-                : 'bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700'
+                ? 'bg-coffee text-bone font-semibold shadow-sm'
+                : 'bg-bone-light border border-mineral text-ink-muted hover:bg-mineral-light'
             }`}
           >
             {t('all')}
@@ -244,8 +244,8 @@ export const CommerceView: React.FC = () => {
               onClick={() => setSelectedCategoryId(cat.id)}
               className={`px-3 py-1 rounded-full text-xs font-medium shrink-0 transition-colors ${
                 selectedCategoryId === cat.id
-                  ? 'bg-purple-600 text-white font-semibold'
-                  : 'bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-coffee text-bone font-semibold shadow-sm'
+                  : 'bg-bone-light border border-mineral text-ink-muted hover:bg-mineral-light'
               }`}
             >
               {cat.name}
@@ -256,7 +256,7 @@ export const CommerceView: React.FC = () => {
 
       {/* Catalog Grid */}
       {filteredItems.length === 0 ? (
-        <div className="bg-slate-800/40 border border-slate-800 rounded-2xl p-12 text-center text-slate-400 space-y-2">
+        <div className="bg-bone-light border border-mineral rounded-2xl p-12 text-center text-ink-muted space-y-2">
           <p className="text-sm font-semibold">{t('noItemsFound')}</p>
         </div>
       ) : (

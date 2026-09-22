@@ -14,20 +14,20 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-center items-center"
+      className="fixed inset-0 bg-ink/60 backdrop-blur-[2px] z-50 flex justify-center items-center p-4 animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl shadow-2xl w-full max-w-md m-4 transform transition-all border border-slate-700"
+        className="bg-bone-light rounded-xl shadow-xl w-full max-w-md transform transition-all border border-mineral overflow-hidden animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-6 relative">
+        <div className="p-6 relative text-ink">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-slate-500 hover:text-slate-300 transition"
+            className="absolute top-4 right-4 text-ink-faint hover:text-ink hover:bg-mineral/40 p-1 rounded-lg transition-colors"
             aria-label={t('close')}
           >
-            <CloseIcon className="h-6 w-6" />
+            <CloseIcon className="h-5 w-5" />
           </button>
           {children}
         </div>

@@ -14,15 +14,15 @@ interface PurchaseOrdersProps {
 const StatusBadge: React.FC<{ status: PurchaseOrder['status'] }> = ({ status }) => {
     const { t } = useTranslation();
     const statusInfo = {
-        draft: { label: t('draft'), color: 'bg-slate-600 text-slate-200' },
-        ordered: { label: t('ordered'), color: 'bg-blue-600 text-blue-100' },
-        'partially-received': { label: t('partiallyReceived'), color: 'bg-yellow-600 text-yellow-100' },
-        completed: { label: t('completed'), color: 'bg-green-600 text-green-100' },
-        cancelled: { label: t('cancelled'), color: 'bg-red-600 text-red-100' },
+        draft: { label: t('draft'), color: 'bg-mineral-light text-ink-muted border border-mineral' },
+        ordered: { label: t('ordered'), color: 'bg-oxide-subtle text-oxide border border-oxide/30' },
+        'partially-received': { label: t('partiallyReceived'), color: 'bg-coffee/10 text-coffee border border-coffee/30' },
+        completed: { label: t('completed'), color: 'bg-olive-subtle text-olive border border-olive/30' },
+        cancelled: { label: t('cancelled'), color: 'bg-danger-subtle text-danger border border-danger/30' },
     }[status];
 
     return (
-        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${statusInfo.color}`}>
+        <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${statusInfo.color}`}>
             {statusInfo.label}
         </span>
     );
@@ -34,11 +34,11 @@ const PurchaseOrders: React.FC<PurchaseOrdersProps> = ({ purchaseOrders, supplie
   const getSupplierName = (id: number) => suppliers.find(s => s.id === id)?.name || 'N/A';
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-slate-100 mb-6">{t('poManagementTitle')}</h2>
+    <div className="bg-bone-light border border-mineral rounded-2xl shadow-sm p-6">
+      <h2 className="text-2xl font-bold text-ink mb-6">{t('poManagementTitle')}</h2>
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left text-slate-400">
-          <thead className="text-xs text-slate-400 uppercase bg-slate-800/50">
+        <table className="w-full text-sm text-left text-ink-muted">
+          <thead className="text-xs text-ink uppercase bg-mineral-light/60 border-b border-mineral">
             <tr>
               <th scope="col" className="px-6 py-3">{t('poId')}</th>
               <th scope="col" className="px-6 py-3">{t('suppliers')}</th>
@@ -50,25 +50,25 @@ const PurchaseOrders: React.FC<PurchaseOrdersProps> = ({ purchaseOrders, supplie
           </thead>
           <tbody>
             {purchaseOrders.map((po) => (
-              <tr key={po.id} className="border-b border-slate-700 hover:bg-slate-800/60">
-                <th scope="row" className="px-6 py-4 font-medium text-slate-100 whitespace-nowrap">
+              <tr key={po.id} className="border-b border-mineral/60 hover:bg-bone">
+                <th scope="row" className="px-6 py-4 font-semibold text-ink whitespace-nowrap">
                     {po.id}
                 </th>
-                <td className="px-6 py-4">{getSupplierName(po.supplierId)}</td>
-                <td className="px-6 py-4">{new Date(po.orderDate).toLocaleDateString('id-ID')}</td>
+                <td className="px-6 py-4 text-ink">{getSupplierName(po.supplierId)}</td>
+                <td className="px-6 py-4 text-ink-muted text-xs">{new Date(po.orderDate).toLocaleDateString('id-ID')}</td>
                 <td className="px-6 py-4 text-center">
                     <StatusBadge status={po.status} />
                 </td>
-                <td className="px-6 py-4 text-right font-semibold text-slate-200">{formatCurrency(po.totalCost)}</td>
+                <td className="px-6 py-4 text-right font-semibold text-ink">{formatCurrency(po.totalCost)}</td>
                 <td className="px-6 py-4 text-center">
                   <div className="flex justify-center items-center space-x-3">
                     {po.status === 'draft' && (
-                        <button onClick={() => onEdit(po)} className="text-purple-400 hover:text-purple-300" aria-label={`${t('edit')} ${po.id}`}>
+                        <button onClick={() => onEdit(po)} className="text-coffee hover:text-coffee-hover transition-colors" aria-label={`${t('edit')} ${po.id}`}>
                             <EditIcon className="h-5 w-5" />
                         </button>
                     )}
                     {(po.status === 'ordered' || po.status === 'partially-received') && (
-                         <button onClick={() => onReceive(po)} className="flex items-center space-x-2 text-sm font-semibold bg-green-500/10 text-green-400 hover:bg-green-500/20 px-3 py-1 rounded-md" aria-label={`${t('receive')} ${po.id}`}>
+                         <button onClick={() => onReceive(po)} className="flex items-center space-x-1.5 text-xs font-semibold bg-olive-subtle text-olive border border-olive/30 hover:bg-olive/20 px-3 py-1.5 rounded-lg transition-colors" aria-label={`${t('receive')} ${po.id}`}>
                             <TruckIcon className="h-4 w-4" />
                             <span>{t('receive')}</span>
                         </button>
@@ -81,9 +81,9 @@ const PurchaseOrders: React.FC<PurchaseOrdersProps> = ({ purchaseOrders, supplie
         </table>
       </div>
       {purchaseOrders.length === 0 && (
-          <div className="text-center py-10 text-slate-400">
-              <p>{t('noPurchaseOrders')}</p>
-              <p className="text-sm">{t('pleaseAddPO')}</p>
+          <div className="text-center py-10 text-ink-muted">
+              <p className="font-semibold">{t('noPurchaseOrders')}</p>
+              <p className="text-sm text-ink-faint">{t('pleaseAddPO')}</p>
           </div>
       )}
     </div>

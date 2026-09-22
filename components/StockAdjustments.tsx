@@ -10,14 +10,14 @@ interface StockAdjustmentsProps {
 const TypeBadge: React.FC<{ type: StockAdjustmentType }> = ({ type }) => {
     const { t } = useTranslation();
     const typeInfo = {
-        wastage: { label: t('wastage'), color: 'bg-red-600 text-red-100' },
-        correction: { label: t('correction'), color: 'bg-blue-600 text-blue-100' },
-        'internal-use': { label: t('internalUse'), color: 'bg-yellow-600 text-yellow-100' },
-        'return': { label: t('return'), color: 'bg-green-600 text-green-100' },
+        wastage: { label: t('wastage'), color: 'bg-danger-subtle text-danger border border-danger/30' },
+        correction: { label: t('correction'), color: 'bg-mineral-light text-ink border border-mineral' },
+        'internal-use': { label: t('internalUse'), color: 'bg-oxide-subtle text-oxide border border-oxide/30' },
+        'return': { label: t('return'), color: 'bg-olive-subtle text-olive border border-olive/30' },
     }[type];
 
     return (
-        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${typeInfo.color}`}>
+        <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${typeInfo.color}`}>
             {typeInfo.label}
         </span>
     );
@@ -29,11 +29,11 @@ const StockAdjustments: React.FC<StockAdjustmentsProps> = ({ adjustments, rawMat
   const getItemName = (id: number) => rawMaterials.find(rm => rm.id === id)?.name || 'N/A';
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-slate-100 mb-6">{t('stockAdjustmentsTitle')}</h2>
+    <div className="bg-bone-light border border-mineral rounded-2xl shadow-sm p-6">
+      <h2 className="text-2xl font-bold text-ink mb-6">{t('stockAdjustmentsTitle')}</h2>
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left text-slate-400">
-          <thead className="text-xs text-slate-400 uppercase bg-slate-800/50">
+        <table className="w-full text-sm text-left text-ink-muted">
+          <thead className="text-xs text-ink uppercase bg-mineral-light/60 border-b border-mineral">
             <tr>
               <th scope="col" className="px-6 py-3">{t('adjustmentId')}</th>
               <th scope="col" className="px-6 py-3">{t('adjustmentDate')}</th>
@@ -44,32 +44,32 @@ const StockAdjustments: React.FC<StockAdjustmentsProps> = ({ adjustments, rawMat
           </thead>
           <tbody>
             {adjustments.map((adj) => (
-              <tr key={adj.id} className="border-b border-slate-700 hover:bg-slate-800/60">
-                <td className="px-6 py-4 font-medium text-slate-100">{adj.id}</td>
-                <td className="px-6 py-4">{new Date(adj.date).toLocaleString('id-ID')}</td>
+              <tr key={adj.id} className="border-b border-mineral/60 hover:bg-bone">
+                <td className="px-6 py-4 font-semibold text-ink">{adj.id}</td>
+                <td className="px-6 py-4 text-xs text-ink-muted">{new Date(adj.date).toLocaleString('id-ID')}</td>
                 <td className="px-6 py-4"><TypeBadge type={adj.type} /></td>
                 <td className="px-6 py-4">
                   <ul className="text-xs space-y-1">
                     {adj.items.map(item => (
                        <li key={item.rawMaterialId}>
-                           <span className={`${item.quantity > 0 ? 'text-green-400' : 'text-red-400'} font-semibold`}>
+                           <span className={`${item.quantity > 0 ? 'text-olive' : 'text-danger'} font-bold`}>
                                {item.quantity > 0 ? `+${item.quantity}` : item.quantity}
                            </span>
-                           <span className="ml-2 text-slate-300">{getItemName(item.rawMaterialId)}</span>
+                           <span className="ml-2 text-ink">{getItemName(item.rawMaterialId)}</span>
                        </li>
                     ))}
                   </ul>
                 </td>
-                <td className="px-6 py-4 text-xs italic">{adj.notes || '-'}</td>
+                <td className="px-6 py-4 text-xs italic text-ink-muted">{adj.notes || '-'}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       {adjustments.length === 0 && (
-          <div className="text-center py-10 text-slate-400">
-              <p>{t('noStockAdjustments')}</p>
-              <p className="text-sm">{t('pleaseAddAdjustment')}</p>
+          <div className="text-center py-10 text-ink-muted">
+              <p className="font-semibold">{t('noStockAdjustments')}</p>
+              <p className="text-sm text-ink-faint">{t('pleaseAddAdjustment')}</p>
           </div>
       )}
     </div>

@@ -46,35 +46,35 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     <ToastContext.Provider value={{ showToast, success, error, info }}>
       {children}
       {/* Toast Container Overlay */}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col space-y-3 max-w-sm w-full pointer-events-none">
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col space-y-2.5 max-w-sm w-full pointer-events-none">
         {toasts.map(toast => {
           const typeStyles = {
-            success: 'bg-slate-900/95 border-emerald-500/50 text-emerald-300 shadow-emerald-950/40',
-            error: 'bg-slate-900/95 border-red-500/50 text-red-300 shadow-red-950/40',
-            info: 'bg-slate-900/95 border-indigo-500/50 text-indigo-300 shadow-indigo-950/40',
+            success: 'bg-ink text-bone border-olive/50 shadow-md',
+            error: 'bg-ink text-bone border-danger/50 shadow-md',
+            info: 'bg-ink text-bone border-mineral/40 shadow-md',
           }[toast.type];
 
           const IconComponent = {
-            success: <CheckCircleIcon className="h-5 w-5 text-emerald-400 shrink-0" />,
-            error: <DangerIcon className="h-5 w-5 text-red-400 shrink-0" />,
-            info: <InfoIcon className="h-5 w-5 text-indigo-400 shrink-0" />,
+            success: <CheckCircleIcon className="h-4 w-4 text-olive-subtle shrink-0 mt-0.5" />,
+            error: <DangerIcon className="h-4 w-4 text-danger-subtle shrink-0 mt-0.5" />,
+            info: <InfoIcon className="h-4 w-4 text-mineral-light shrink-0 mt-0.5" />,
           }[toast.type];
 
           return (
             <div
               key={toast.id}
-              className={`pointer-events-auto flex items-start space-x-3 p-4 rounded-xl border shadow-xl backdrop-blur-md transition-all duration-300 animate-slide-in ${typeStyles}`}
+              className={`pointer-events-auto flex items-start space-x-2.5 p-3.5 rounded-xl border shadow-lg transition-all duration-200 animate-slide-up ${typeStyles}`}
             >
               {IconComponent}
-              <div className="flex-1 text-sm font-medium text-slate-200 break-words leading-snug">
+              <div className="flex-1 text-xs font-medium text-bone-light break-words leading-relaxed">
                 {toast.message}
               </div>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-slate-400 hover:text-slate-200 transition-colors p-0.5 rounded"
+                className="text-mineral-dark hover:text-bone transition-colors p-0.5 rounded"
                 aria-label="Close"
               >
-                <CloseIcon className="h-4 w-4" />
+                <CloseIcon className="h-3.5 w-3.5" />
               </button>
             </div>
           );

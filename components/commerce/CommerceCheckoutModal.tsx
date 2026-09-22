@@ -82,17 +82,17 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/60 backdrop-blur-[2px] animate-fade-in">
+      <div className="bg-bone-light border border-mineral rounded-2xl w-full max-w-lg max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-slide-up text-ink">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700 bg-slate-800">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-mineral bg-bone">
           <div className="flex items-center gap-2">
-            <ShoppingBagIcon className="w-5 h-5 text-purple-400" />
-            <h2 className="text-base font-bold text-slate-100">{t('confirmAndOrder')}</h2>
+            <ShoppingBagIcon className="w-5 h-5 text-coffee" />
+            <h2 className="text-base font-bold text-ink">{t('confirmAndOrder')}</h2>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-700 transition-colors"
+            className="text-ink-faint hover:text-ink p-1 rounded-lg hover:bg-mineral/40 transition-colors"
             aria-label={t('closeCart')}
           >
             <CloseIcon className="w-5 h-5" />
@@ -102,7 +102,7 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
         {/* Modal Form Content */}
         <form onSubmit={handleSubmit} className="overflow-y-auto p-5 space-y-4 flex-grow">
           {error && (
-            <div className="p-3 bg-red-950/60 border border-red-800/80 rounded-xl text-xs text-red-300">
+            <div className="p-3 bg-danger-subtle border border-danger/40 rounded-xl text-xs text-danger font-medium">
               {error}
             </div>
           )}
@@ -110,13 +110,13 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
           {/* Quick Select from existing customer directory if available */}
           {customers && customers.length > 0 && (
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-slate-300 block">
+              <label className="text-xs font-semibold text-ink block">
                 {t('customers')} ({t('optional')})
               </label>
               <select
                 value={selectedCustomerId}
                 onChange={e => handleSelectExistingCustomer(e.target.value)}
-                className="w-full text-xs bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-slate-200 focus:outline-none focus:border-purple-500"
+                className="w-full text-xs bg-bone border border-mineral rounded-lg p-2.5 text-ink focus:outline-none focus:border-coffee"
               >
                 <option value="">-- Guest / Customer Baru --</option>
                 {customers.map(c => (
@@ -130,8 +130,8 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
 
           {/* Customer Name */}
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300 block">
-              {t('customerName')} *
+            <label className="text-xs font-semibold text-ink block">
+              {t('customerFullName')} *
             </label>
             <input
               type="text"
@@ -139,13 +139,13 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
               value={customerName}
               onChange={e => setCustomerName(e.target.value)}
               placeholder="Contoh: Andi Pratama"
-              className="w-full text-xs bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500"
+              className="w-full text-xs bg-bone border border-mineral rounded-lg p-2.5 text-ink placeholder-ink-faint focus:outline-none focus:border-coffee"
             />
           </div>
 
           {/* Customer Contact */}
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300 block">
+            <label className="text-xs font-semibold text-ink block">
               {t('customerContact')}
             </label>
             <input
@@ -153,13 +153,13 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
               value={customerContact}
               onChange={e => setCustomerContact(e.target.value)}
               placeholder="0812xxxx atau andi@email.com"
-              className="w-full text-xs bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500"
+              className="w-full text-xs bg-bone border border-mineral rounded-lg p-2.5 text-ink placeholder-ink-faint focus:outline-none focus:border-coffee"
             />
           </div>
 
           {/* Payment Method Preference */}
-          <div className="space-y-2 pt-2 border-t border-slate-700/50">
-            <label className="text-xs font-semibold text-slate-300 block">
+          <div className="space-y-2 pt-2 border-t border-mineral/70">
+            <label className="text-xs font-semibold text-ink block">
               {t('paymentPreference')}
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -176,8 +176,8 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
                     onClick={() => setPaymentMethod(method.key as any)}
                     className={`p-2.5 text-xs font-medium rounded-lg text-left border transition-all ${
                       isSelected
-                        ? 'bg-purple-600/30 border-purple-500 text-purple-200'
-                        : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-600'
+                        ? 'bg-coffee text-bone border-coffee shadow-sm'
+                        : 'bg-bone border-mineral text-ink-muted hover:border-mineral-dark hover:text-ink'
                     }`}
                   >
                     {method.label}
@@ -188,37 +188,37 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
           </div>
 
           {/* Order Summary Box */}
-          <div className="bg-slate-900/80 border border-slate-700/80 rounded-xl p-3.5 space-y-2 pt-3">
-            <p className="text-xs font-bold text-slate-300 uppercase tracking-wide">
+          <div className="bg-bone border border-mineral rounded-xl p-3.5 space-y-2 pt-3">
+            <p className="text-[11px] font-bold text-ink-muted uppercase tracking-wider">
               {t('orderSummary')} ({cart.length} item)
             </p>
-            <div className="max-h-28 overflow-y-auto space-y-1.5 divide-y divide-slate-800 text-xs">
+            <div className="max-h-28 overflow-y-auto space-y-1.5 divide-y divide-mineral text-xs">
               {cart.map((item, idx) => (
-                <div key={idx} className="flex justify-between text-slate-300 pt-1 first:pt-0">
+                <div key={idx} className="flex justify-between text-ink pt-1 first:pt-0">
                   <span className="line-clamp-1">
                     {item.name} &times; {item.quantity}
                   </span>
-                  <span className="font-medium shrink-0 ml-2">
+                  <span className="font-semibold shrink-0 ml-2 text-coffee">
                     {formatCurrency(item.sellPrice * item.quantity)}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="border-t border-slate-700 pt-2 space-y-1 text-xs">
-              <div className="flex justify-between text-slate-400">
+            <div className="border-t border-mineral pt-2 space-y-1 text-xs">
+              <div className="flex justify-between text-ink-muted">
                 <span>{t('subtotal')}</span>
-                <span className="font-medium text-slate-200">{formatCurrency(subtotal)}</span>
+                <span className="font-semibold text-ink">{formatCurrency(subtotal)}</span>
               </div>
               {taxRate > 0 && (
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-ink-muted">
                   <span>{t('tax')} ({taxRate}%)</span>
-                  <span className="font-medium text-slate-200">{formatCurrency(tax)}</span>
+                  <span className="font-semibold text-ink">{formatCurrency(tax)}</span>
                 </div>
               )}
-              <div className="flex justify-between font-bold text-slate-100 text-sm pt-1 border-t border-slate-700/60">
+              <div className="flex justify-between font-bold text-ink text-sm pt-1 border-t border-mineral">
                 <span>{t('total')}</span>
-                <span className="text-purple-400">{formatCurrency(total)}</span>
+                <span className="text-coffee">{formatCurrency(total)}</span>
               </div>
             </div>
           </div>
@@ -228,7 +228,7 @@ export const CommerceCheckoutModal: React.FC<CommerceCheckoutModalProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-2.5 bg-coffee hover:bg-coffee-hover text-bone font-semibold text-xs rounded-xl shadow-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {isSubmitting ? 'Memproses Pesanan...' : t('confirmAndOrder')}
             </button>

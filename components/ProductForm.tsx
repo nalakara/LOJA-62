@@ -158,22 +158,22 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSaveProduct, onClose, categ
     }, editingProduct?.id);
   };
 
-  const formInputClass = "w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-md shadow-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500";
+  const formInputClass = "w-full px-3 py-2 bg-bone border border-mineral rounded-lg text-xs text-ink placeholder-ink-faint focus:outline-none focus:border-coffee transition-colors";
 
   return (
     <form onSubmit={handleSubmit} className="max-h-[80vh] overflow-y-auto pr-2">
-      <h2 className="text-2xl font-bold text-slate-100 mb-6">{isEditing ? t('editProduct') : t('addNewProduct')}</h2>
+      <h2 className="text-2xl font-bold text-ink mb-6">{isEditing ? t('editProduct') : t('addNewProduct')}</h2>
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-300">{t('productImage')}</label>
+          <label className="block text-xs font-semibold text-ink-muted mb-1">{t('productImage')}</label>
             <div className="mt-1">
-                <label htmlFor="image-upload" className="cursor-pointer group block w-full h-48 border-2 border-slate-600 border-dashed rounded-md flex justify-center items-center text-slate-500 hover:border-purple-500 hover:text-purple-400 transition overflow-hidden">
+                <label htmlFor="image-upload" className="cursor-pointer group block w-full h-44 border-2 border-mineral border-dashed rounded-xl flex justify-center items-center text-ink-faint hover:border-coffee hover:text-coffee transition overflow-hidden bg-bone">
                     {imageDataUrl ? (
                         <img src={imageDataUrl} alt="Preview" className="h-full w-full object-cover" />
                     ) : (
                         <div className="text-center">
-                            <ImageIcon className="mx-auto h-12 w-12" />
-                            <span className="mt-2 block text-sm font-medium">{t('clickToUpload')}</span>
+                            <ImageIcon className="mx-auto h-10 w-10 text-ink-faint group-hover:text-coffee transition-colors" />
+                            <span className="mt-2 block text-xs font-medium">{t('clickToUpload')}</span>
                         </div>
                     )}
                 </label>
@@ -181,44 +181,44 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSaveProduct, onClose, categ
             </div>
         </div>
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-slate-300">{t('productName')}</label>
+          <label htmlFor="name" className="block text-xs font-semibold text-ink-muted mb-1">{t('productName')}</label>
           <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className={formInputClass} required />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="category" className="block text-sm font-medium text-slate-300">{t('category')}</label>
+            <label htmlFor="category" className="block text-xs font-semibold text-ink-muted mb-1">{t('category')}</label>
             <select id="category" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className={formInputClass}>
               {categories.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
             </select>
           </div>
           <div>
-            <label htmlFor="sellPrice" className="block text-sm font-medium text-slate-300">{t('sellPriceRp')}</label>
+            <label htmlFor="sellPrice" className="block text-xs font-semibold text-ink-muted mb-1">{t('sellPriceRp')}</label>
             <input type="number" id="sellPrice" value={sellPrice} onChange={(e) => setSellPrice(e.target.value)} className={formInputClass} required min="0" placeholder={t('placeholderHalfProduct')} />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
             <div>
-                <label htmlFor="directLaborCost" className="block text-sm font-medium text-slate-300">{t('directLaborCost')}</label>
+                <label htmlFor="directLaborCost" className="block text-xs font-semibold text-ink-muted mb-1">{t('directLaborCost')}</label>
                 <input type="number" id="directLaborCost" value={directLaborCost} onChange={(e) => setDirectLaborCost(e.target.value)} placeholder={t('optional')} className={formInputClass} min="0" />
             </div>
             <div>
-                <label htmlFor="productionOverheadCost" className="block text-sm font-medium text-slate-300">{t('productionOverheadCost')}</label>
+                <label htmlFor="productionOverheadCost" className="block text-xs font-semibold text-ink-muted mb-1">{t('productionOverheadCost')}</label>
                 <input type="number" id="productionOverheadCost" value={productionOverheadCost} onChange={(e) => setProductionOverheadCost(e.target.value)} placeholder={t('optional')} className={formInputClass} min="0" />
             </div>
         </div>
 
         {/* Recipe Section */}
-        <div className="pt-4 border-t border-slate-700">
-            <h3 className="text-lg font-semibold text-slate-100 mb-2">{t('recipeAndHpp')}</h3>
+        <div className="pt-4 border-t border-mineral">
+            <h3 className="text-base font-bold text-ink mb-2">{t('recipeAndHpp')}</h3>
             <div className="space-y-2">
                 {recipe.map(item => (
-                    <div key={`${item.itemType}-${item.itemId}`} className="flex items-center justify-between bg-slate-800/70 p-2 rounded-md">
+                    <div key={`${item.itemType}-${item.itemId}`} className="flex items-center justify-between bg-mineral-light/60 border border-mineral/80 p-2.5 rounded-lg">
                         <div>
-                            <span className={`font-medium text-slate-200 ${item.itemType === 'product' && 'text-purple-400'}`}>{getRecipeItemName(item)}</span>
-                            <span className="text-sm text-slate-400 ml-2">{item.quantity} {getRecipeItemUnit(item)}</span>
+                            <span className={`font-semibold text-xs text-ink ${item.itemType === 'product' && 'text-coffee'}`}>{getRecipeItemName(item)}</span>
+                            <span className="text-xs text-ink-muted ml-2">{item.quantity} {getRecipeItemUnit(item)}</span>
                         </div>
-                        <button type="button" onClick={() => handleRemoveRecipeItem(item.itemId, item.itemType)} className="text-red-500 hover:text-red-400">
-                            <TrashIcon className="h-5 w-5" />
+                        <button type="button" onClick={() => handleRemoveRecipeItem(item.itemId, item.itemType)} className="text-danger hover:text-danger-hover transition-colors">
+                            <TrashIcon className="h-4 w-4" />
                         </button>
                     </div>
                 ))}
@@ -226,7 +226,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSaveProduct, onClose, categ
             
             <div className="flex items-end gap-2 mt-4">
                 <div className="flex-grow">
-                    <label htmlFor="recipe-item" className="block text-sm font-medium text-slate-300">{t('recipeItem')}</label>
+                    <label htmlFor="recipe-item" className="block text-xs font-semibold text-ink-muted mb-1">{t('recipeItem')}</label>
                     <select id="recipe-item" value={selectedItemId} onChange={e => setSelectedItemId(e.target.value)} className={formInputClass}>
                         <optgroup label={t('semiFinishedProducts')}>
                             {availableProducts.map(p => <option key={`product-${p.id}`} value={`product-${p.id}`}>{p.name}</option>)}
@@ -237,41 +237,41 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSaveProduct, onClose, categ
                     </select>
                 </div>
                 <div className="w-28">
-                    <label htmlFor="quantity" className="block text-sm font-medium text-slate-300">{t('quantity')}</label>
+                    <label htmlFor="quantity" className="block text-xs font-semibold text-ink-muted mb-1">{t('quantity')}</label>
                     <input type="number" id="quantity" value={itemQuantity} onChange={e => setItemQuantity(e.target.value)} className={formInputClass} min="0" step="any" />
                 </div>
-                <button type="button" onClick={handleAddRecipeItem} className="p-2 bg-purple-500/20 text-purple-300 rounded-md hover:bg-purple-500/30 transition h-10">
-                    <AddIcon className="h-5 w-5" />
+                <button type="button" onClick={handleAddRecipeItem} className="p-2.5 bg-coffee hover:bg-coffee-hover text-bone rounded-lg transition-colors h-[38px] flex items-center justify-center">
+                    <AddIcon className="h-4 w-4" />
                 </button>
             </div>
-            <div className="mt-4 text-right bg-slate-800/80 p-3 rounded-md space-y-1">
-                <p className="text-xs text-slate-400 flex justify-between">
+            <div className="mt-4 text-right bg-mineral-light/40 border border-mineral p-3 rounded-lg space-y-1">
+                <p className="text-xs text-ink-muted flex justify-between">
                     <span>{t('estimatedMaterialCost')}</span> 
-                    <span>{formatCurrency(materialCost)}</span>
+                    <span className="font-medium text-ink">{formatCurrency(materialCost)}</span>
                 </p>
-                 <p className="text-xs text-slate-400 flex justify-between">
+                 <p className="text-xs text-ink-muted flex justify-between">
                     <span>{t('directLaborCost')}:</span> 
-                    <span>{formatCurrency(parseFloat(directLaborCost) || 0)}</span>
+                    <span className="font-medium text-ink">{formatCurrency(parseFloat(directLaborCost) || 0)}</span>
                 </p>
-                 <p className="text-xs text-slate-400 flex justify-between">
+                 <p className="text-xs text-ink-muted flex justify-between">
                     <span>{t('productionOverheadCost')}:</span> 
-                    <span>{formatCurrency(parseFloat(productionOverheadCost) || 0)}</span>
+                    <span className="font-medium text-ink">{formatCurrency(parseFloat(productionOverheadCost) || 0)}</span>
                 </p>
-                <div className="pt-2 border-t border-slate-600">
-                    <p className="text-sm font-medium text-slate-300 flex justify-between">
+                <div className="pt-2 border-t border-mineral">
+                    <p className="text-sm font-semibold text-ink flex justify-between">
                         <span>{t('estimatedTotalHpp')}</span> 
-                        <span className="text-base font-bold text-purple-400">{formatCurrency(hpp)}</span>
+                        <span className="text-base font-bold text-coffee">{formatCurrency(hpp)}</span>
                     </p>
-                    <p className="text-xs italic text-slate-500 mt-1">{t('hppNote')}</p>
+                    <p className="text-[11px] italic text-ink-faint mt-1">{t('hppNote')}</p>
                 </div>
             </div>
         </div>
       </div>
       <div className="mt-8 flex justify-end space-x-3">
-        <button type="button" onClick={onClose} className="px-4 py-2 bg-slate-700 text-slate-200 rounded-md hover:bg-slate-600 transition font-semibold">
+        <button type="button" onClick={onClose} className="px-4 py-2 bg-mineral-light hover:bg-mineral text-ink rounded-lg transition font-semibold text-xs">
           {t('cancel')}
         </button>
-        <button type="submit" className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-md hover:from-purple-700 hover:to-indigo-700 transition font-semibold">
+        <button type="submit" className="px-4 py-2 bg-coffee hover:bg-coffee-hover text-bone rounded-lg transition font-semibold text-xs shadow-sm">
           {isEditing ? t('updateProduct') : t('saveProduct')}
         </button>
       </div>

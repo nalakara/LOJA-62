@@ -29,46 +29,46 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
   return (
     <div
-      className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex justify-center items-center p-4 animate-fade-in"
+      className="fixed inset-0 bg-ink/60 backdrop-blur-[2px] z-50 flex justify-center items-center p-4 animate-fade-in"
       onClick={onCancel}
     >
       <div
-        className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-2xl w-full max-w-md border border-slate-700 overflow-hidden transform transition-all"
+        className="bg-bone-light rounded-xl shadow-xl w-full max-w-md border border-mineral overflow-hidden transform transition-all animate-slide-up"
         onClick={e => e.stopPropagation()}
       >
         <div className="p-6">
-          <div className="flex items-start space-x-4">
-            <div className={`p-3 rounded-xl shrink-0 ${isDestructive ? 'bg-red-500/20 text-red-400' : 'bg-amber-500/20 text-amber-400'}`}>
-              <DangerIcon className="h-6 w-6" />
+          <div className="flex items-start space-x-3.5">
+            <div className={`p-2.5 rounded-lg shrink-0 ${isDestructive ? 'bg-danger-subtle text-danger' : 'bg-oxide-subtle text-oxide'}`}>
+              <DangerIcon className="h-5 w-5" />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-bold text-slate-100 leading-6">
+              <h3 className="text-base font-bold text-ink leading-snug">
                 {title}
               </h3>
-              <p className="mt-2 text-sm text-slate-300 leading-relaxed">
+              <p className="mt-1.5 text-xs text-ink-muted leading-relaxed">
                 {message}
               </p>
             </div>
           </div>
 
-          <div className="mt-6 flex justify-end space-x-3">
+          <div className="mt-6 flex justify-end space-x-2.5">
             <button
               type="button"
               onClick={onCancel}
-              className="px-4 py-2 text-sm font-medium text-slate-300 bg-slate-700/80 hover:bg-slate-700 rounded-lg transition-colors"
+              className="px-3.5 py-2 text-xs font-semibold text-ink bg-mineral-light hover:bg-mineral rounded-lg transition-colors"
             >
               {cancelLabel || t('cancel')}
             </button>
             <button
               type="button"
               onClick={onConfirm}
-              className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors shadow-md ${
+              className={`px-4 py-2 text-xs font-semibold text-white rounded-lg transition-colors shadow-sm ${
                 isDestructive
-                  ? 'bg-red-600 hover:bg-red-700'
-                  : 'bg-indigo-600 hover:bg-indigo-700'
+                  ? 'bg-danger hover:bg-danger-hover'
+                  : 'bg-coffee hover:bg-coffee-hover'
               }`}
             >
-              {confirmLabel || t('delete')}
+              {confirmLabel || (isDestructive ? t('delete') : t('confirm'))}
             </button>
           </div>
         </div>

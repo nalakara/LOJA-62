@@ -12,12 +12,12 @@ interface SalesHistoryProps {
 const StatusBadge: React.FC<{ status: 'paid' | 'unpaid' }> = ({ status }) => {
     const { t } = useTranslation();
     const statusInfo = {
-        paid: { label: t('paid'), color: 'bg-green-600 text-green-100' },
-        unpaid: { label: t('unpaid'), color: 'bg-amber-600 text-amber-100' },
+        paid: { label: t('paid'), color: 'bg-olive-subtle text-olive border border-olive/30' },
+        unpaid: { label: t('unpaid'), color: 'bg-oxide-subtle text-oxide border border-oxide/30' },
     }[status];
 
     return (
-        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${statusInfo.color}`}>
+        <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${statusInfo.color}`}>
             {statusInfo.label}
         </span>
     );
@@ -66,8 +66,8 @@ const SalesHistory: React.FC<SalesHistoryProps> = ({ transactions, onViewDetails
   const FilterButton: React.FC<{ type: string; label: string }> = ({ type, label }) => (
     <button
       onClick={() => setFilterType(type)}
-      className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-        filterType === type ? 'bg-indigo-600 text-white' : 'bg-slate-700 text-slate-200 hover:bg-slate-600'
+      className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+        filterType === type ? 'bg-coffee text-bone shadow-sm' : 'bg-bone border border-mineral text-ink-muted hover:bg-mineral-light'
       }`}
     >
       {label}
@@ -75,10 +75,10 @@ const SalesHistory: React.FC<SalesHistoryProps> = ({ transactions, onViewDetails
   );
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-slate-100 mb-6">{t('salesHistory')}</h2>
+    <div className="bg-bone-light border border-mineral rounded-2xl shadow-sm p-6">
+      <h2 className="text-2xl font-bold text-ink mb-6">{t('salesHistory')}</h2>
       
-      <div className="flex flex-wrap items-center gap-4 mb-6 p-4 bg-slate-800/60 rounded-lg">
+      <div className="flex flex-wrap items-center gap-4 mb-6 p-4 bg-mineral-light/40 border border-mineral rounded-xl">
         <div className="flex items-center gap-2">
           <FilterButton type="all" label={t('allTime')} />
           <FilterButton type="today" label={t('today')} />
@@ -90,21 +90,21 @@ const SalesHistory: React.FC<SalesHistoryProps> = ({ transactions, onViewDetails
                 type="date"
                 value={startDate}
                 onChange={e => { setStartDate(e.target.value); setFilterType('custom'); }}
-                className="px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm text-slate-200"
+                className="px-3 py-1.5 bg-bone border border-mineral rounded-lg text-xs text-ink focus:outline-none focus:border-coffee"
             />
-            <span className="text-slate-400">{t('to')}</span>
+            <span className="text-xs text-ink-muted">{t('to')}</span>
             <input 
                 type="date"
                 value={endDate}
                 onChange={e => { setEndDate(e.target.value); setFilterType('custom'); }}
-                className="px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-sm text-slate-200"
+                className="px-3 py-1.5 bg-bone border border-mineral rounded-lg text-xs text-ink focus:outline-none focus:border-coffee"
             />
         </div>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left text-slate-400">
-          <thead className="text-xs text-slate-400 uppercase bg-slate-800/50">
+        <table className="w-full text-sm text-left text-ink-muted">
+          <thead className="text-xs text-ink uppercase bg-mineral-light/60 border-b border-mineral">
             <tr>
               <th scope="col" className="px-6 py-3">{t('invoiceId')}</th>
               <th scope="col" className="px-6 py-3">{t('date')}</th>
@@ -118,16 +118,16 @@ const SalesHistory: React.FC<SalesHistoryProps> = ({ transactions, onViewDetails
           </thead>
           <tbody>
             {filteredTransactions.map((transaction) => (
-              <tr key={transaction.id} className="border-b border-slate-700 hover:bg-slate-800/60">
-                <td className="px-6 py-4 font-medium text-slate-100">{transaction.id}</td>
-                <td className="px-6 py-4">{new Date(transaction.timestamp).toLocaleString('id-ID')}</td>
-                <td className="px-6 py-4">{getCustomerName(transaction.customerId)}</td>
-                <td className="px-6 py-4">{transaction.items.reduce((sum, item) => sum + item.quantity, 0)}</td>
-                <td className="px-6 py-4 text-right font-semibold">{formatCurrency(transaction.total)}</td>
-                <td className="px-6 py-4 text-right font-semibold text-green-400">{formatCurrency(transaction.profit)}</td>
+              <tr key={transaction.id} className="border-b border-mineral/60 hover:bg-bone">
+                <td className="px-6 py-4 font-semibold text-ink">{transaction.id}</td>
+                <td className="px-6 py-4 text-ink-muted text-xs">{new Date(transaction.timestamp).toLocaleString('id-ID')}</td>
+                <td className="px-6 py-4 text-ink">{getCustomerName(transaction.customerId)}</td>
+                <td className="px-6 py-4 text-ink">{transaction.items.reduce((sum, item) => sum + item.quantity, 0)}</td>
+                <td className="px-6 py-4 text-right font-semibold text-ink">{formatCurrency(transaction.total)}</td>
+                <td className="px-6 py-4 text-right font-semibold text-olive">{formatCurrency(transaction.profit)}</td>
                 <td className="px-6 py-4 text-center"><StatusBadge status={transaction.paymentStatus} /></td>
                 <td className="px-6 py-4 text-center">
-                  <button onClick={() => onViewDetails(transaction)} className="font-medium text-purple-400 hover:text-purple-300">
+                  <button onClick={() => onViewDetails(transaction)} className="font-semibold text-xs text-coffee hover:text-coffee-hover transition-colors">
                     {t('details')}
                   </button>
                 </td>
@@ -137,8 +137,8 @@ const SalesHistory: React.FC<SalesHistoryProps> = ({ transactions, onViewDetails
         </table>
       </div>
       {filteredTransactions.length === 0 && (
-        <div className="text-center py-10 text-slate-400">
-          <p>{t('noTransactionsForPeriod')}</p>
+        <div className="text-center py-10 text-ink-muted">
+          <p className="font-semibold">{t('noTransactionsForPeriod')}</p>
         </div>
       )}
     </div>

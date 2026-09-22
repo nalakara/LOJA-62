@@ -55,16 +55,15 @@ const ReceivePOModal: React.FC<ReceivePOModalProps> = ({ purchaseOrder, onReceiv
   };
 
   const getItemName = (id: number) => rawMaterials.find(m => m.id === id)?.name || 'N/A';
-  const formInputClass = "w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-md shadow-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500";
-
+  const formInputClass = "w-full px-3 py-1.5 bg-bone border border-mineral rounded-lg text-xs text-ink placeholder-ink-faint focus:outline-none focus:border-coffee transition-colors";
 
   return (
     <div className="max-h-[80vh] overflow-y-auto pr-2">
-      <h2 className="text-2xl font-bold text-slate-100 mb-2">{t('receiveStock')}</h2>
-      <p className="text-sm text-slate-400 mb-6">{t('receiveItemsForPO')} <span className="font-semibold text-slate-200">{purchaseOrder.id}</span></p>
+      <h2 className="text-2xl font-bold text-ink mb-1">{t('receiveStock')}</h2>
+      <p className="text-xs text-ink-muted mb-6">{t('receiveItemsForPO')} <span className="font-semibold text-ink">{purchaseOrder.id}</span></p>
 
-      <div className="space-y-4">
-        <div className="grid grid-cols-4 gap-4 text-xs font-semibold uppercase text-slate-400 px-2">
+      <div className="space-y-3">
+        <div className="grid grid-cols-4 gap-4 text-[11px] font-bold uppercase text-ink-muted px-2">
             <div className="col-span-2">{t('item')}</div>
             <div className="text-center">{t('ordered')} / {t('received')}</div>
             <div className="text-center">{t('receiveNow')}</div>
@@ -73,17 +72,17 @@ const ReceivePOModal: React.FC<ReceivePOModalProps> = ({ purchaseOrder, onReceiv
         {itemsToProcess.map(item => {
             const maxReceivable = item.quantityOrdered - item.quantityReceived;
             return (
-                <div key={item.rawMaterialId} className="grid grid-cols-4 gap-4 items-center bg-slate-800/60 p-2 rounded-md">
-                    <div className="col-span-2 font-medium text-slate-200">{getItemName(item.rawMaterialId)}</div>
-                    <div className="text-center text-sm text-slate-300">
-                        {item.quantityOrdered} / <span className="text-green-400">{item.quantityReceived}</span>
+                <div key={item.rawMaterialId} className="grid grid-cols-4 gap-4 items-center bg-mineral-light/60 border border-mineral/80 p-2.5 rounded-lg">
+                    <div className="col-span-2 font-semibold text-xs text-ink">{getItemName(item.rawMaterialId)}</div>
+                    <div className="text-center text-xs text-ink-muted">
+                        {item.quantityOrdered} / <span className="text-olive font-semibold">{item.quantityReceived}</span>
                     </div>
                     <div>
                         <input
                             type="number"
                             value={receiveQuantities[item.rawMaterialId] ?? ''}
                             onChange={e => handleQuantityChange(item.rawMaterialId, e.target.value)}
-                            className={`${formInputClass} text-center`}
+                            className={`${formInputClass} text-center font-semibold`}
                             max={maxReceivable}
                             min="0"
                             step="any"
@@ -96,20 +95,20 @@ const ReceivePOModal: React.FC<ReceivePOModalProps> = ({ purchaseOrder, onReceiv
       </div>
       
       {itemsToProcess.length === 0 && (
-          <div className="text-center py-10 text-slate-400">
-              <p>{t('noItemsToReceive')}</p>
+          <div className="text-center py-10 text-ink-muted">
+              <p className="font-semibold">{t('noItemsToReceive')}</p>
           </div>
       )}
 
       <div className="mt-8 flex justify-between items-center">
-        <button type="button" onClick={handleReceiveAll} className="px-4 py-2 bg-slate-600 text-slate-200 rounded-md hover:bg-slate-500 transition font-semibold text-sm">
+        <button type="button" onClick={handleReceiveAll} className="px-4 py-2 bg-mineral-light hover:bg-mineral text-ink rounded-lg transition font-semibold text-xs">
             {t('receiveAll')}
         </button>
         <div className="flex space-x-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 bg-slate-700 text-slate-200 rounded-md hover:bg-slate-600 transition font-semibold">
+            <button type="button" onClick={onClose} className="px-4 py-2 bg-mineral-light hover:bg-mineral text-ink rounded-lg transition font-semibold text-xs">
               {t('cancel')}
             </button>
-            <button type="button" onClick={handleSubmit} className="px-4 py-2 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-md hover:from-green-700 hover:to-teal-700 transition font-semibold">
+            <button type="button" onClick={handleSubmit} className="px-4 py-2 bg-coffee hover:bg-coffee-hover text-bone rounded-lg transition font-semibold text-xs shadow-sm">
               {t('confirmReceive')}
             </button>
         </div>

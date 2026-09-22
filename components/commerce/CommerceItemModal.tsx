@@ -61,23 +61,23 @@ export const CommerceItemModal: React.FC<CommerceItemModalProps> = ({
   const itemTotal = item.sellPrice * quantity;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/60 backdrop-blur-[2px] animate-fade-in">
+      <div className="bg-bone-light border border-mineral rounded-2xl w-full max-w-lg max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-slide-up">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-mineral bg-bone">
           <div className="flex items-center gap-2">
             <span
-              className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                isService ? 'bg-sky-500/20 text-sky-300' : 'bg-purple-500/20 text-purple-300'
+              className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${
+                isService ? 'bg-oxide-subtle text-oxide' : 'bg-mineral text-ink-muted'
               }`}
             >
               {isService ? t('serviceBadge') : t('productBadge')}
             </span>
-            <h2 className="text-lg font-bold text-slate-100 line-clamp-1">{item.name}</h2>
+            <h2 className="text-base font-bold text-ink line-clamp-1">{item.name}</h2>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-200 p-1 rounded-lg hover:bg-slate-700 transition-colors"
+            className="text-ink-faint hover:text-ink p-1 rounded-lg hover:bg-mineral/40 transition-colors"
             aria-label={t('closeCart')}
           >
             <CloseIcon className="w-5 h-5" />
@@ -85,29 +85,29 @@ export const CommerceItemModal: React.FC<CommerceItemModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="overflow-y-auto p-5 space-y-5 flex-grow">
+        <div className="overflow-y-auto p-5 space-y-4 flex-grow text-ink">
           {/* Image & Description */}
-          <div className="flex gap-4 items-start">
+          <div className="flex gap-3.5 items-start">
             <img
               src={item.imageUrl}
               alt={item.name}
-              className="w-24 h-24 object-cover rounded-xl bg-slate-900 shrink-0 border border-slate-700"
+              className="w-20 h-20 object-cover rounded-xl bg-mineral-light shrink-0 border border-mineral"
             />
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-slate-100">{item.name}</p>
-              <p className="text-sm font-bold text-purple-400">{formatCurrency(item.sellPrice)}</p>
+              <p className="text-sm font-semibold text-ink">{item.name}</p>
+              <p className="text-sm font-bold text-coffee">{formatCurrency(item.sellPrice)}</p>
               {item.description && (
-                <p className="text-xs text-slate-300 leading-relaxed">{item.description}</p>
+                <p className="text-xs text-ink-muted leading-relaxed">{item.description}</p>
               )}
             </div>
           </div>
 
           {/* Options (Configuration metadata) */}
           {item.options && item.options.length > 0 && (
-            <div className="space-y-4 pt-2 border-t border-slate-700/50">
+            <div className="space-y-3.5 pt-2 border-t border-mineral/70">
               {item.options.map(opt => (
-                <div key={opt.name} className="space-y-2">
-                  <label className="text-xs font-semibold text-slate-300 block">{opt.name}</label>
+                <div key={opt.name} className="space-y-1.5">
+                  <label className="text-xs font-semibold text-ink block">{opt.name}</label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {opt.choices.map(choice => {
                       const isSelected = selectedOptions[opt.name] === choice;
@@ -118,8 +118,8 @@ export const CommerceItemModal: React.FC<CommerceItemModalProps> = ({
                           onClick={() => handleOptionChange(opt.name, choice)}
                           className={`px-3 py-2 text-xs font-medium rounded-lg text-left border transition-all ${
                             isSelected
-                              ? 'bg-purple-600/30 border-purple-500 text-purple-200'
-                              : 'bg-slate-900/50 border-slate-700 text-slate-300 hover:border-slate-600'
+                              ? 'bg-coffee text-bone border-coffee shadow-sm'
+                              : 'bg-bone border-mineral text-ink-muted hover:border-mineral-dark hover:text-ink'
                           }`}
                         >
                           {choice}
@@ -133,8 +133,8 @@ export const CommerceItemModal: React.FC<CommerceItemModalProps> = ({
           )}
 
           {/* Special Notes / Custom Request */}
-          <div className="space-y-1.5 pt-2 border-t border-slate-700/50">
-            <label className="text-xs font-semibold text-slate-300 block">
+          <div className="space-y-1.5 pt-2 border-t border-mineral/70">
+            <label className="text-xs font-semibold text-ink block">
               {isService ? t('customRequest') : t('itemNotes')}
             </label>
             <textarea
@@ -142,55 +142,55 @@ export const CommerceItemModal: React.FC<CommerceItemModalProps> = ({
               onChange={e => setNotes(e.target.value)}
               placeholder={t('itemNotesPlaceholder')}
               rows={2}
-              className="w-full text-xs bg-slate-900/60 border border-slate-700 rounded-lg p-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors resize-none"
+              className="w-full text-xs bg-bone border border-mineral rounded-lg p-2.5 text-ink placeholder-ink-faint focus:outline-none focus:border-coffee transition-colors resize-none"
             />
           </div>
 
           {/* Quantity / Amount Selector */}
-          <div className="pt-2 border-t border-slate-700/50 flex items-center justify-between">
+          <div className="pt-2 border-t border-mineral/70 flex items-center justify-between">
             <div>
-              <span className="text-xs font-semibold text-slate-300 block">
+              <span className="text-xs font-semibold text-ink block">
                 {isService ? t('amountInKg') : t('quantity')}
               </span>
               {!isService && (
-                <span className="text-[11px] text-slate-400">
+                <span className="text-[11px] text-ink-muted">
                   {t('available')}: {item.stock}
                 </span>
               )}
             </div>
-            <div className="flex items-center space-x-3 bg-slate-900/80 border border-slate-700 rounded-lg p-1">
+            <div className="flex items-center space-x-2 bg-bone border border-mineral rounded-lg p-1">
               <button
                 type="button"
                 onClick={() => handleQuantityChange(-1)}
                 disabled={quantity <= 1}
-                className="p-1.5 text-slate-300 hover:text-white rounded disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-800 transition-colors"
+                className="p-1.5 text-ink hover:text-coffee rounded disabled:opacity-30 disabled:cursor-not-allowed hover:bg-mineral-light transition-colors"
               >
-                <MinusIcon className="w-4 h-4" />
+                <MinusIcon className="w-3.5 h-3.5" />
               </button>
-              <span className="w-8 text-center text-sm font-bold text-slate-100">{quantity}</span>
+              <span className="w-8 text-center text-xs font-bold text-ink">{quantity}</span>
               <button
                 type="button"
                 onClick={() => handleQuantityChange(1)}
                 disabled={quantity >= maxQuantity}
-                className="p-1.5 text-slate-300 hover:text-white rounded disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-800 transition-colors"
+                className="p-1.5 text-ink hover:text-coffee rounded disabled:opacity-30 disabled:cursor-not-allowed hover:bg-mineral-light transition-colors"
               >
-                <PlusIcon className="w-4 h-4" />
+                <PlusIcon className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-slate-900/80 border-t border-slate-700 flex items-center justify-between gap-3">
+        <div className="p-4 bg-bone border-t border-mineral flex items-center justify-between gap-3">
           <div>
-            <span className="text-xs text-slate-400 block">{t('total')}</span>
-            <span className="text-base font-bold text-slate-100">{formatCurrency(itemTotal)}</span>
+            <span className="text-[11px] text-ink-muted block">{t('total')}</span>
+            <span className="text-base font-bold text-coffee">{formatCurrency(itemTotal)}</span>
           </div>
 
           <button
             type="button"
             onClick={handleAdd}
-            className="px-5 py-2.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold rounded-xl shadow-md transition-colors"
+            className="px-5 py-2.5 bg-coffee hover:bg-coffee-hover text-bone text-xs font-semibold rounded-xl shadow-sm transition-colors"
           >
             {t('addToCart')}
           </button>

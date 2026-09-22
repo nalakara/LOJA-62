@@ -384,23 +384,23 @@ const App: React.FC = () => {
 
   if (isSettingsLoading || isInventoryLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-900">
+      <div className="flex justify-center items-center h-screen bg-bone">
         <div className="text-center">
-          <p className="text-lg font-semibold text-slate-300">Loading your store...</p>
+          <p className="text-lg font-semibold text-ink-muted">Loading your store...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen bg-bone font-sans text-ink">
       <Header currentView={currentView} onNavigate={setCurrentView} storeName={settings.storeName} />
       <main className="p-4 md:p-8 max-w-screen-2xl mx-auto">
         {currentView === 'pos' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl shadow-lg p-6">
-                <h2 className="text-2xl font-bold text-slate-100 mb-4">{t('selectProduct')}</h2>
+              <div className="bg-bone-light border border-mineral rounded-2xl shadow-sm p-6">
+                <h2 className="text-2xl font-bold text-ink mb-4">{t('selectProduct')}</h2>
                 <CategoryTabs
                   categories={categories.filter(c => products.some(p => p.categoryId === c.id && p.sellPrice > 0))}
                   selectedCategory={selectedCategory}
@@ -531,7 +531,7 @@ const App: React.FC = () => {
       {fabAction && (
         <button
           onClick={fabAction}
-          className="fixed bottom-8 right-8 bg-gradient-to-br from-purple-600 to-indigo-600 text-white p-4 rounded-full shadow-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-purple-400 focus:ring-opacity-50 transition-transform transform hover:scale-110"
+          className="fixed bottom-8 right-8 bg-coffee hover:bg-coffee-hover text-bone p-4 rounded-full shadow-lg focus:outline-none focus:ring-4 focus:ring-coffee/30 transition-transform transform hover:scale-105"
           aria-label={fabLabel}
         >
           <AddIcon className="h-8 w-8" />

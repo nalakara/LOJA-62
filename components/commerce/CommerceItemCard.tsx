@@ -14,9 +14,9 @@ export const CommerceItemCard: React.FC<CommerceItemCardProps> = ({ item, format
   const isAvailable = isService || item.stock > 0;
 
   return (
-    <div className="bg-slate-800/60 border border-slate-700/70 rounded-xl overflow-hidden shadow-md hover:border-slate-600 transition-all flex flex-col h-full group">
+    <div className="bg-bone-light border border-mineral rounded-xl overflow-hidden shadow-sm hover:border-coffee/50 transition-all duration-200 flex flex-col h-full group">
       {/* Thumbnail */}
-      <div className="relative aspect-[4/3] w-full bg-slate-900 overflow-hidden">
+      <div className="relative aspect-[4/3] w-full bg-mineral-light overflow-hidden">
         <img
           src={item.imageUrl}
           alt={item.name}
@@ -26,11 +26,11 @@ export const CommerceItemCard: React.FC<CommerceItemCardProps> = ({ item, format
         {/* Badges */}
         <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
           {isService ? (
-            <span className="bg-sky-500/90 text-sky-950 font-bold text-xs px-2.5 py-0.5 rounded-full backdrop-blur-sm shadow">
+            <span className="bg-oxide text-bone font-semibold text-[11px] px-2.5 py-0.5 rounded-md shadow-sm">
               {t('serviceBadge')}
             </span>
           ) : (
-            <span className="bg-slate-900/80 text-slate-300 font-medium text-xs px-2.5 py-0.5 rounded-full border border-slate-700/60 backdrop-blur-sm">
+            <span className="bg-bone/90 border border-mineral text-ink font-medium text-[11px] px-2 py-0.5 rounded-md backdrop-blur-sm">
               {item.categoryName}
             </span>
           )}
@@ -39,11 +39,11 @@ export const CommerceItemCard: React.FC<CommerceItemCardProps> = ({ item, format
         {!isService && (
           <div className="absolute top-2.5 right-2.5">
             {isAvailable ? (
-              <span className="bg-emerald-950/80 text-emerald-400 font-medium text-xs px-2 py-0.5 rounded-full border border-emerald-700/50 backdrop-blur-sm">
+              <span className="bg-bone/90 border border-olive/40 text-olive font-bold text-[11px] px-2 py-0.5 rounded-md backdrop-blur-sm">
                 {t('available')}: {item.stock}
               </span>
             ) : (
-              <span className="bg-red-950/80 text-red-400 font-medium text-xs px-2 py-0.5 rounded-full border border-red-700/50 backdrop-blur-sm">
+              <span className="bg-bone/90 border border-danger/40 text-danger font-bold text-[11px] px-2 py-0.5 rounded-md backdrop-blur-sm">
                 {t('outOfStock')}
               </span>
             )}
@@ -54,20 +54,20 @@ export const CommerceItemCard: React.FC<CommerceItemCardProps> = ({ item, format
       {/* Content */}
       <div className="p-4 flex flex-col flex-grow justify-between gap-3">
         <div>
-          <h3 className="font-semibold text-slate-100 text-base leading-snug line-clamp-1 group-hover:text-purple-300 transition-colors">
+          <h3 className="font-semibold text-ink text-sm leading-snug line-clamp-1 group-hover:text-coffee transition-colors">
             {item.name}
           </h3>
           {item.description && (
-            <p className="text-xs text-slate-400 mt-1.5 line-clamp-2 leading-relaxed">
+            <p className="text-xs text-ink-muted mt-1.5 line-clamp-2 leading-relaxed">
               {item.description}
             </p>
           )}
         </div>
 
-        <div className="pt-2 border-t border-slate-700/50 flex items-center justify-between gap-2 mt-auto">
+        <div className="pt-3 border-t border-mineral/70 flex items-center justify-between gap-2 mt-auto">
           <div>
-            <p className="text-xs text-slate-400 font-medium">{t('pricePerUnit')}</p>
-            <p className="text-base font-bold text-slate-100">
+            <p className="text-[11px] text-ink-muted font-medium">{t('pricePerUnit')}</p>
+            <p className="text-sm font-bold text-coffee">
               {formatCurrency(item.sellPrice)}
             </p>
           </div>
@@ -77,8 +77,8 @@ export const CommerceItemCard: React.FC<CommerceItemCardProps> = ({ item, format
             disabled={!isAvailable}
             className={`px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors shadow-sm ${
               isAvailable
-                ? 'bg-purple-600 hover:bg-purple-500 text-white'
-                : 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                ? 'bg-coffee hover:bg-coffee-hover text-bone'
+                : 'bg-mineral text-ink-faint cursor-not-allowed'
             }`}
           >
             {isAvailable ? t('selectAndConfigure') : t('outOfStock')}

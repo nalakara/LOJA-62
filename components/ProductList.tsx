@@ -14,31 +14,34 @@ const ProductCard: React.FC<{ product: ProductWithDetails; onAddToCart: (product
     const canAddToCart = product.stock > 0;
     
     return (
-        <div className={`relative group bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-lg overflow-hidden shadow-md transition-all duration-300 ${canAddToCart ? 'hover:shadow-lg hover:shadow-purple-500/10 hover:border-purple-400' : 'opacity-50'}`}>
-            <div className="absolute top-2 right-2 bg-slate-700/80 text-slate-200 text-xs font-semibold px-2 py-1 rounded-full z-10">
-                {t('stock')}: {product.stock}
+        <div className={`relative group bg-bone-light border border-mineral rounded-xl overflow-hidden shadow-sm transition-all duration-200 flex flex-col ${canAddToCart ? 'hover:border-coffee/60 hover:shadow' : 'opacity-60'}`}>
+            <div className="absolute top-2 right-2 bg-bone/90 border border-mineral text-ink text-[11px] font-semibold px-2 py-0.5 rounded-md z-10 backdrop-blur-sm">
+                {product.stock > 0 ? (
+                  <span className="text-olive font-bold">{t('stock')}: {product.stock}</span>
+                ) : (
+                  <span className="text-danger font-bold">{t('outOfStock')}</span>
+                )}
             </div>
-            <img src={product.imageUrl} alt={product.name} className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-105" />
-            <div className="p-4">
-                <h3 className="font-semibold text-slate-100 truncate">{product.name}</h3>
-                <p className="text-sm text-slate-400">{product.categoryName}</p>
-                <div className="mt-4 flex justify-between items-center">
-                    <p className="text-lg font-bold text-purple-400">{formatCurrency(product.sellPrice)}</p>
+            <div className="w-full h-36 bg-mineral-light overflow-hidden">
+                <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+            </div>
+            <div className="p-3.5 flex flex-col flex-grow justify-between">
+                <div>
+                  <h3 className="font-semibold text-ink text-sm leading-snug line-clamp-1 group-hover:text-coffee transition-colors">{product.name}</h3>
+                  <p className="text-xs text-ink-muted mt-0.5">{product.categoryName}</p>
+                </div>
+                <div className="mt-3 pt-2.5 border-t border-mineral/60 flex justify-between items-center">
+                    <p className="text-sm font-bold text-coffee">{formatCurrency(product.sellPrice)}</p>
                     <button 
                         onClick={() => canAddToCart && onAddToCart(product)} 
                         disabled={!canAddToCart}
-                        className={`p-2 rounded-full transition-colors duration-200 ${canAddToCart ? 'bg-purple-500/20 text-purple-300 hover:bg-purple-500/30' : 'bg-slate-700 text-slate-500 cursor-not-allowed'}`}
+                        className={`p-2 rounded-lg transition-colors duration-150 ${canAddToCart ? 'bg-coffee text-bone hover:bg-coffee-hover shadow-sm' : 'bg-mineral text-ink-faint cursor-not-allowed'}`}
                         aria-label={t('addToCart')}
                     >
-                        <AddToCartIcon className="h-5 w-5" />
+                        <AddToCartIcon className="h-4 w-4" />
                     </button>
                 </div>
             </div>
-            {!canAddToCart && (
-                <div className="absolute inset-0 bg-slate-900/70 flex items-center justify-center">
-                    <span className="text-slate-300 font-bold">{t('outOfStock')}</span>
-                </div>
-            )}
         </div>
     );
 };

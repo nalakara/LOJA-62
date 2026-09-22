@@ -16,17 +16,17 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({
   const { t } = useTranslation();
   const allCategories = [{ id: 'All', name: t('all') }, ...categories];
   return (
-    <div className="mb-6 border-b border-slate-700">
-      <nav className="-mb-px flex space-x-6 overflow-x-auto">
+    <div className="mb-5 border-b border-mineral">
+      <nav className="-mb-px flex space-x-6 overflow-x-auto scrollbar-none">
         {allCategories.map((category) => (
           <button
             key={category.id}
             onClick={() => onSelectCategory(category.id as number | 'All')}
-            className={`whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200
+            className={`whitespace-nowrap pb-3 px-1 border-b-2 font-semibold text-xs tracking-wide transition-colors duration-150
               ${
                 selectedCategory === category.id
-                  ? 'border-purple-400 text-purple-400'
-                  : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-500'
+                  ? 'border-coffee text-coffee'
+                  : 'border-transparent text-ink-muted hover:text-ink hover:border-mineral-dark'
               }
             `}
           >
