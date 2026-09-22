@@ -123,8 +123,8 @@ export const CommerceCartDrawer: React.FC<CommerceCartDrawerProps> = ({
                         >
                           <MinusIcon className="w-3 h-3" />
                         </button>
-                        <span className="w-6 text-center text-xs font-bold text-slate-100">
-                          {item.quantity}
+                        <span className="min-w-6 px-1 text-center text-xs font-bold text-slate-100">
+                          {item.quantity} {isService ? 'kg' : ''}
                         </span>
                         <button
                           type="button"

@@ -120,18 +120,19 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
   {
     id: 6,
-    name: 'Jasa Custom Roasting (per Batch 1kg)',
+    name: 'Jasa Sangrai / Roasting Service',
     categoryId: 6, // Layanan & Roastery
     recipe: [],
-    sellPrice: 45000,
+    sellPrice: 50000,
     imageUrl: 'https://picsum.photos/seed/customroast/400/300',
     directLaborCost: 25000,
     productionOverheadCost: 10000,
     itemType: 'service',
-    description: 'Layanan jasa sangrai biji kopi mentah (green bean) pelanggan dengan profil sangrai yang dapat disesuaikan.',
+    description: 'Layanan jasa sangrai biji kopi mentah (green bean) pelanggan dengan profil sangrai, gilingan, dan kemasan pilihan.',
     options: [
-      { name: 'Target Profile', choices: ['Light-Medium (Filter / Fruity)', 'Medium Roast (Balance)', 'Dark Roast (Bold / Espresso)'] },
-      { name: 'Packaging', choices: ['Standard Valve Pouch', 'Vacuum Bag'] },
+      { name: 'Roasting Level', choices: ['Light Roast', 'Medium Roast', 'Dark Roast'] },
+      { name: 'Output', choices: ['Whole Bean (Biji Utuh)', 'Ground (Giling)'] },
+      { name: 'Packaging', choices: ['Standard Packaging', 'Custom Packaging'] },
     ],
   },
   {

@@ -132,9 +132,11 @@ export const CommerceItemModal: React.FC<CommerceItemModalProps> = ({
             </div>
           )}
 
-          {/* Special Notes */}
+          {/* Special Notes / Custom Request */}
           <div className="space-y-1.5 pt-2 border-t border-slate-700/50">
-            <label className="text-xs font-semibold text-slate-300 block">{t('itemNotes')}</label>
+            <label className="text-xs font-semibold text-slate-300 block">
+              {isService ? t('customRequest') : t('itemNotes')}
+            </label>
             <textarea
               value={notes}
               onChange={e => setNotes(e.target.value)}
@@ -144,10 +146,12 @@ export const CommerceItemModal: React.FC<CommerceItemModalProps> = ({
             />
           </div>
 
-          {/* Quantity Selector */}
+          {/* Quantity / Amount Selector */}
           <div className="pt-2 border-t border-slate-700/50 flex items-center justify-between">
             <div>
-              <span className="text-xs font-semibold text-slate-300 block">{t('quantity')}</span>
+              <span className="text-xs font-semibold text-slate-300 block">
+                {isService ? t('amountInKg') : t('quantity')}
+              </span>
               {!isService && (
                 <span className="text-[11px] text-slate-400">
                   {t('available')}: {item.stock}
