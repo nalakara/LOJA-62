@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { ProductionBatch, Product, RawMaterial, ProductionStatus } from '../types';
 import { useTranslation } from '../context/LanguageContext';
 import { FlameIcon, EditIcon, TrashIcon, AddIcon, CloseIcon } from './icons';
+import { calculateRestingStatus } from '../lib/roastingMath';
 
 interface ProductionOrdersProps {
   batches: ProductionBatch[];
@@ -80,34 +81,23 @@ export const ProductionOrders: React.FC<ProductionOrdersProps> = ({
     return batches.filter(b => b.status === statusFilter);
   }, [batches, statusFilter]);
 
-  // Helper to calculate resting status
+  // Helper to calculate resting status using pure roastingMath module
   const getRestingInfo = (batch: ProductionBatch) => {
-    if (!batch.roastDate || !batch.restingDays) {
+    const res = calculateRestingStatus(batch.roastDate, batch.restingDays);
+    if (res.status === 'none') {
       return { status: 'none', label: '-' };
     }
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const roast = new Date(batch.roastDate);
-    roast.setHours(0, 0, 0, 0);
-
-    const readyDate = new Date(roast.getTime() + batch.restingDays * 24 * 60 * 60 * 1000);
-    const diffTime = readyDate.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    if (diffDays > 0) {
+    if (res.status === 'resting') {
       return {
         status: 'resting',
-        label: t('restingDaysLeft').replace('{days}', String(diffDays)),
-        daysLeft: diffDays,
-      };
-    } else {
-      return {
-        status: 'ready',
-        label: t('readyToBrew'),
+        label: t('restingDaysLeft').replace('{days}', String(res.daysRemaining)),
+        daysLeft: res.daysRemaining,
       };
     }
+    return {
+      status: 'ready',
+      label: t('readyToBrew'),
+    };
   };
 
   return (
@@ -326,11 +316,7 @@ export const ProductionOrders: React.FC<ProductionOrdersProps> = ({
                           <EditIcon className="h-4 w-4" />
                         </button>
                         <button
-                          onClick={() => {
-                            if (window.confirm(t('confirmDeleteBatch'))) {
-                              onDeleteBatch(batch.id);
-                            }
-                          }}
+                          onClick={() => onDeleteBatch(batch.id)}
                           className="p-1.5 text-slate-400 hover:text-red-400 rounded hover:bg-slate-700"
                           title={t('delete')}
                         >

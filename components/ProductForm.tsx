@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Category, Product, RawMaterial, RecipeItem } from '../types';
 import { AddIcon, TrashIcon, ImageIcon } from './icons';
 import { useTranslation } from '../context/LanguageContext';
+import { calculateHpp } from '../lib/bomEngine';
 
 interface ProductFormProps {
   onSaveProduct: (product: Omit<Product, 'id'>, id?: number) => void;
@@ -120,18 +121,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSaveProduct, onClose, categ
   }
 
   const materialCost = useMemo(() => {
-    // Note: This is a simplified HPP calculation for display within the form.
-    // The authoritative calculation is in App.tsx
-    const calculateItemCost = (item: RecipeItem): number => {
-        if(item.itemType === 'raw-material') {
-            const material = rawMaterials.find(rm => rm.id === item.itemId);
-            return material ? material.costPerUnit * item.quantity : 0;
-        }
-        // Simplified: does not recursively calculate HPP for sub-products in the form
-        // to avoid complexity and performance issues here. It's just an estimate.
-        return 0; 
-    };
-    return recipe.reduce((total, item) => total + calculateItemCost(item), 0);
+    return recipe.reduce((total, item) => {
+      if (item.itemType === 'raw-material') {
+        const material = rawMaterials.find(rm => rm.id === item.itemId);
+        return total + (material ? material.costPerUnit * item.quantity : 0);
+      } else {
+        const subProduct = products.find(p => p.id === item.itemId);
+        return total + (subProduct ? calculateHpp(subProduct, products, rawMaterials) * item.quantity : 0);
+      }
+    }, 0);
   }, [recipe, rawMaterials, products]);
   
   const hpp = useMemo(() => {

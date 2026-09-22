@@ -1,5 +1,6 @@
 import { Product, Category, RawMaterial, RawMaterialCategory, SaleTransaction, AppSettings, CartItem, Supplier, Customer, PurchaseOrder, PurchaseOrderItem, StockAdjustment, StoreAsset, ProductionBatch } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_CATEGORIES, INITIAL_RAW_MATERIALS, INITIAL_RAW_MATERIAL_CATEGORIES, INITIAL_SUPPLIERS, INITIAL_CUSTOMERS, INITIAL_PURCHASE_ORDERS, INITIAL_STOCK_ADJUSTMENTS, INITIAL_STORE_ASSETS, INITIAL_PRODUCTION_BATCHES } from '../constants';
+import { getFlattenedRawMaterials } from '../lib/bomEngine';
 
 // --- LocalStorage Utility Functions ---
 
@@ -441,24 +442,14 @@ export const processSale = async (
     const rawMaterials = await getRawMaterials();
     const materialDeductions = new Map<number, number>();
 
-    const getRawMaterialsForProduct = (product: Product, quantity: number) => {
-        product.recipe.forEach(item => {
-            if (item.itemType === 'raw-material') {
-                const currentDeduction = materialDeductions.get(item.itemId) || 0;
-                materialDeductions.set(item.itemId, currentDeduction + (item.quantity * quantity));
-            } else { // 'product'
-                const subProduct = products.find(p => p.id === item.itemId);
-                if (subProduct) {
-                    getRawMaterialsForProduct(subProduct, item.quantity * quantity);
-                }
-            }
-        });
-    };
-
     cart.forEach(cartItem => {
         const product = products.find(p => p.id === cartItem.id);
         if (product) {
-            getRawMaterialsForProduct(product, cartItem.quantity);
+            const itemDeductions = getFlattenedRawMaterials(product, cartItem.quantity, products);
+            itemDeductions.forEach((qty, materialId) => {
+                const current = materialDeductions.get(materialId) || 0;
+                materialDeductions.set(materialId, current + qty);
+            });
         }
     });
 
