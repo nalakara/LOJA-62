@@ -113,7 +113,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, storeName }) =
 
         {/* Second Line: Navigation */}
         <div className="mt-2.5">
-            <nav className="flex items-center space-x-1 p-1 bg-ink-dark/60 rounded-xl border border-mineral/10 flex-wrap gap-y-1">
+            <nav className="flex items-center space-x-1 p-1 bg-ink-dark/60 rounded-xl border border-mineral/10 overflow-x-auto no-scrollbar scroll-smooth">
                 <NavButton 
                     isActive={currentView === 'pos'}
                     onClick={() => onNavigate('pos')}

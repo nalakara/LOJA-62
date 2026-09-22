@@ -3,7 +3,7 @@
 :root {
   --color-ink: #242122;
   --color-ink-muted: #4A4644;
-  --color-ink-faint: #78736E;
+  --color-ink-faint: #615D58;
   
   --color-bone: #F2EFE8;
   --color-bone-light: #F9F7F2;
@@ -34,6 +34,12 @@ body {
   color: #242122;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global accessible focus indicator (R-32) */
+:focus-visible {
+  outline: 2px solid var(--color-coffee);
+  outline-offset: 2px;
 }
 
 /* Restrained scrollbar */

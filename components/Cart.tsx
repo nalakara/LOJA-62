@@ -37,15 +37,15 @@ const Cart: React.FC<CartProps> = ({ cartItems, onUpdateQuantity, onRemoveItem, 
               <div className="flex-grow min-w-0">
                 <p className="font-semibold text-xs text-ink line-clamp-1">{item.name}</p>
                 <p className="text-xs font-bold text-coffee mt-0.5">{formatCurrency(item.sellPrice)}</p>
-                <div className="flex items-center space-x-1.5 mt-1">
-                  <button onClick={() => onUpdateQuantity(item.id, -1)} className="p-1 rounded bg-mineral hover:bg-mineral-dark transition text-ink"><MinusIcon className="h-3 w-3" /></button>
-                  <span className="px-2 text-xs font-bold text-ink">{item.quantity}</span>
-                  <button onClick={() => onUpdateQuantity(item.id, 1)} className="p-1 rounded bg-mineral hover:bg-mineral-dark transition text-ink"><PlusIcon className="h-3 w-3" /></button>
+                <div className="flex items-center space-x-1 mt-1">
+                  <button onClick={() => onUpdateQuantity(item.id, -1)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-mineral hover:bg-mineral-dark active:scale-95 transition text-ink" aria-label="Kurangi kuantitas"><MinusIcon className="h-3 w-3" /></button>
+                  <span className="px-2 text-xs font-bold text-ink min-w-[20px] text-center">{item.quantity}</span>
+                  <button onClick={() => onUpdateQuantity(item.id, 1)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-mineral hover:bg-mineral-dark active:scale-95 transition text-ink" aria-label="Tambah kuantitas"><PlusIcon className="h-3 w-3" /></button>
                 </div>
               </div>
               <div className="flex flex-col items-end shrink-0">
                 <p className="font-bold text-xs text-ink">{formatCurrency(item.sellPrice * item.quantity)}</p>
-                <button onClick={() => onRemoveItem(item.id)} className="text-danger hover:text-danger-hover mt-1 p-1 transition" aria-label={t('delete')}><TrashIcon className="h-4 w-4" /></button>
+                <button onClick={() => onRemoveItem(item.id)} className="text-danger hover:text-danger-hover mt-1 p-1.5 transition rounded-lg hover:bg-danger/10" aria-label={t('delete')}><TrashIcon className="h-4 w-4" /></button>
               </div>
             </div>
           ))}
