@@ -408,7 +408,7 @@ const App: React.FC = () => {
       {/* Main App Container */}
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
         <Header
-          storeName={settings.storeName}
+          currentView={currentView}
           onOpenMobileNav={() => setIsMobileNavOpen(true)}
         />
         

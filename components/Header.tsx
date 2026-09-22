@@ -1,19 +1,43 @@
 import React from 'react';
-import { StoreIcon, MenuIcon } from './icons';
-import { useTranslation } from '../context/LanguageContext';
+import { MenuIcon } from './icons';
+import { View } from '../types';
+import { useTranslation, TranslationKey } from '../context/LanguageContext';
 
 interface HeaderProps {
-  storeName: string;
+  currentView: View;
   onOpenMobileNav: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ storeName, onOpenMobileNav }) => {
-  const { locale, setLocale } = useTranslation();
+// Map any view (parent or child) to its mother/top-level navigation context translation key
+const VIEW_CONTEXT_MAP: Record<View, TranslationKey> = {
+  pos: 'pos',
+  commerce: 'commerce',
+  inventory: 'productManagement',
+  categories: 'productManagement',
+  materials: 'productManagement',
+  'material-categories': 'productManagement',
+  production: 'productManagement',
+  'purchase-orders': 'productManagement',
+  'stock-adjustments': 'productManagement',
+  customers: 'contacts',
+  suppliers: 'contacts',
+  dashboard: 'dashboard',
+  reports: 'reports',
+  'store-profile': 'management',
+  'store-assets': 'management',
+  'invoice-settings': 'management',
+};
+
+const Header: React.FC<HeaderProps> = ({ currentView, onOpenMobileNav }) => {
+  const { t, locale, setLocale } = useTranslation();
+
+  const contextKey = VIEW_CONTEXT_MAP[currentView] || 'pos';
+  const contextTitle = t(contextKey);
 
   return (
     <header className="bg-ink text-bone sticky top-0 z-20 border-b border-mineral/20 shadow-sm">
-      <div className="px-4 md:px-8 py-3.5 flex justify-between items-center">
-        {/* Left: Mobile Menu Toggle & Brand Identity */}
+      <div className="px-4 md:px-8 py-3 flex justify-between items-center">
+        {/* Left: Mobile Menu Toggle & Contextual Navigation Title */}
         <div className="flex items-center space-x-3">
           <button
             onClick={onOpenMobileNav}
@@ -23,12 +47,9 @@ const Header: React.FC<HeaderProps> = ({ storeName, onOpenMobileNav }) => {
             <MenuIcon className="h-6 w-6" />
           </button>
           
-          <div className="flex items-center space-x-2.5">
-            <StoreIcon className="h-6 w-6 text-coffee-light md:hidden shrink-0" />
-            <span className="font-bold text-base md:text-lg tracking-tight text-bone font-sans">
-              {storeName || 'Loja-62'}
-            </span>
-          </div>
+          <h1 className="font-semibold text-sm md:text-base text-bone tracking-wide font-sans">
+            {contextTitle}
+          </h1>
         </div>
 
         {/* Right: Language Switcher */}
